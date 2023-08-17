@@ -1,0 +1,5 @@
+#include <unistd.h> // Needed for the write function
+
+int _putchar(char c) {
+    return write(1, &c, 1); // Write the character to standard output
+}
