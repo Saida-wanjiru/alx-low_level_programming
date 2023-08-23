@@ -1,59 +1,53 @@
-#include "main.h"
-#include <stdio.h>
+clude <stdio.h>
+#include <string.h>
 
-/**
- * main - check the code
- *
- * Return: Always 0.
- */
-int main(void)
-{
-        char *n = "1234567892434574367823574575678477685785645685876876774586734734563456453743756756784458";
-        char *m = "9034790663470697234682914569346259634958693246597324659762347956349265983465962349569346";
-        char r[100];
-        char r2[10];
-        char r3[11];
-        char *res;
-
-        res = infinite_add(n, m, r, 100);
-        if (res == 0)
-        {
-                printf("Error\n");
-        }
-        else
-        {
-                printf("%s + %s = %s\n", n, m, res);
-        }
-        n = "1234567890";
-        m = "1";
-        res = infinite_add(n, m, r2, 10);
-        if (res == 0)
-        {
-                printf("Error\n");
-        }
-        else
-        {
-                printf("%s + %s = %s\n", n, m, res);
-        }
-        n = "999999999";
-        m = "1";
-        res = infinite_add(n, m, r2, 10);
-        if (res == 0)
-        {
-                printf("Error\n");
-        }
-        else
-        {
-                printf("%s + %s = %s\n", n, m, res);
-        }
-        res = infinite_add(n, m, r3, 11);
-        if (res == 0)
-        {
-                printf("Error\n");
-        }
-        else
-        {
-                printf("%s + %s = %s\n", n, m, res);
-        }
-        return (0);
+void reverseString(char *str) {
+    int length = strlen(str);
+    for (int i = 0; i < length / 2; i++) {
+        char temp = str[i];
+        str[i] = str[length - 1 - i];
+        str[length - 1 - i] = temp;
+    }
 }
+
+void infiniteAdd(char *num1, char *num2, char *result, int maxLength) {
+    int carry = 0;
+    int i = 0;
+
+    reverseString(num1);
+    reverseString(num2);
+
+    while (num1[i] != '\0' || num2[i] != '\0' || carry != 0) {
+        int digit1 = num1[i] - '0';
+        int digit2 = num2[i] - '0';
+
+        int sum = digit1 + digit2 + carry;
+        carry = sum / 10;
+        int digitSum = sum % 10;
+
+        result[i] = digitSum + '0';
+
+        i++;
+
+        if (i >= maxLength - 1) {
+            printf("Result is too long for the allocated buffer.\n");
+            return;
+        }
+    }
+
+    result[i] = '\0';
+    reverseString(result);
+}
+
+int main() {
+    char num1[] = "12345678901234567890";
+    char num2[] = "98765432109876543210";
+    char result[100]; // Adjust the buffer size as needed
+
+    infiniteAdd(num1, num2, result, sizeof(result));
+
+    printf("Result: %s\n", result);
+
+    return 0;
+}
+
