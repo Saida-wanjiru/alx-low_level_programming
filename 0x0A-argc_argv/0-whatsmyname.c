@@ -2,20 +2,22 @@
 #include <stdlib.h>
 
 /**
- *main - prints number of arguments passed
- *@argc: first parameter
- *@argv: second parameter
- *DESCRIPTION: prints number of arguments
+ *main - prints file name
+ *@argc: argument count
+ *@argv: argument vector
+ *DESCRIPTION: prints file name
  *Return: Always (0) Success
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-int i;
-for (i = 0; i < argc; i++)
-{
-argv[i] = argv[i];
-}
-printf("%d\n", i - 1);
-return (0);
+	int i;
+
+	i = 0;
+	while (i < argc)
+	{
+		printf("%s\n", argv[0]);
+		i++;
+	}
+	return (0);
 }
